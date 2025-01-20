@@ -5,7 +5,6 @@ import { GoPlus } from "react-icons/go";
 const AsideProfile = () => {
     // const userData =
     const data = useSelector((store)=> store?.UserData?.user);
-    console.log(data);
     
   return (
     <div className="flex flex-col gap-4 md:w-[250px] w-[100%]">

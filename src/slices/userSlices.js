@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useId } from "react";
+
 const iniData = {
     user:{
         displayName :"",
         email:"",
         uid:"",
+        isLogIn:false,
     },
     allPost:[
         {
@@ -14,7 +16,8 @@ const iniData = {
             id:"12345",
             comment:[]
         }
-    ]
+    ],
+
 }
 const UserSlices = createSlice({
     name:"UserDetails",

@@ -3,9 +3,19 @@ import './App.css'
 import LoginComponent from './components/LoginComponent'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MainComponent from './components/MainComponent'
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import store from '../store';
+import { useEffect } from 'react';
+import { updateUserDetails } from './slices/userSlices';
 function App() {
+  // const dispatch = useDispatch();
+    // useEffect(()=>{},[])
+    
+    // if(data){
+    //   const userRes = JSON.parse(data);
+    //   dispatch(updateUserDetails(userRes))
+    // }
+    // console.log(JSON.parse(data));
   
 
   const router = createBrowserRouter([

@@ -4,13 +4,22 @@ import HeaderComponent from './HeaderComponent'
 import Post from './Post'
 import PostSection from './PostSection'
 import TrendinghAside from './TrendinghAside'
-import { useId } from 'react'
+import { useEffect, useId } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const  MainComponent = ()=> {
   const allPost = useSelector((store)=> store.UserData.allPost);
-  // console.log(allPost);
-  // const id = useId();
-  
+  const navigate = useNavigate()
+  const data = localStorage.getItem('userData');
+    // const userRes = JSON.parse(data);
+    const userRes = JSON.parse(data);
+    console.log(userRes);
+    useEffect(()=>{
+      if(!userRes?.isLogIn){
+        navigate("/")
+        console.log(userRes);
+    }
+    },[])
   
   return (
     <div className='w-[100%] bg-[#F4F2EE] relative'>

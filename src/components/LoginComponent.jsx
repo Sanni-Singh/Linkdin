@@ -3,11 +3,20 @@ import google from '../assets/img/google.png'
 import login from '../assets/img/login.svg'
 import { auth, googleAuthProvider } from '../utils/firebase'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateUserDetails } from '../slices/userSlices'
+import { useEffect } from 'react'
 const LoginComponent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const data = localStorage.getItem('userData');
+    const userRes = JSON.parse(data);
+        console.log(userRes);
+        useEffect(()=>{
+          if(userRes?.isLogIn){
+            navigate("/home")
+        }
+        },[])
     const loginFn = async()=>{
 
         try{
@@ -16,7 +25,9 @@ const LoginComponent = () => {
                 displayName :res.user.displayName,
                 email:res.user.email,
                 uid:res.user?.uid,
+                isLogIn:true,
             }
+            localStorage.setItem("userData" , JSON.stringify(userDetails));
             dispatch(updateUserDetails(userDetails))
 
             navigate("/home");

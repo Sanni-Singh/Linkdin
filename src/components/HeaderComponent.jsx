@@ -17,6 +17,7 @@ const HeaderComponent = ()=> {
         const auth = getAuth();
         await signOut(auth);
         setSignOuter(false);
+        localStorage.removeItem("userData")
         navigate("/");
 
     }
