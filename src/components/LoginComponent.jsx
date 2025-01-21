@@ -21,11 +21,14 @@ const LoginComponent = () => {
 
         try{
             const res = await signInWithPopup(auth, googleAuthProvider);
+            console.log(res);
+            
             const userDetails = {
                 displayName :res.user.displayName,
                 email:res.user.email,
                 uid:res.user?.uid,
                 isLogIn:true,
+                imageUrl:res.user?.photoURL
             }
             localStorage.setItem("userData" , JSON.stringify(userDetails));
             dispatch(updateUserDetails(userDetails))

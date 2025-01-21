@@ -7,6 +7,7 @@ const iniData = {
         email:"",
         uid:"",
         isLogIn:false,
+        imageUrl:""
     },
     allPost:[
         {

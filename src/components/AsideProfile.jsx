@@ -1,18 +1,18 @@
-import {useSelector} from "react-redux"
+
 import { FaChessQueen } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 const AsideProfile = () => {
-    // const userData =
-    const data = useSelector((store)=> store?.UserData?.user);
+    const userData = localStorage.getItem('userData');
+    const datas = JSON.parse(userData);
     
   return (
     <div className="flex flex-col gap-4 md:w-[250px] w-[100%]">
         <div className="relative border overflow-hidden flex flex-col bg-white gap-4 border-gray-300   rounded-md">
-            <img className="w-[100%]  h-[100px]" src="https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-padrinan-255379.jpg&fm=jpg" alt="" />
-            <img className="w-[70px] h-[70px] m-auto mt-[-50px] rounded-[50%]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq7wUje_rFblJ1IX16lC9-0WiyDl2jbl7re9vS9H77MLeDXiX6yUaZ6McVKReSERcbSsk&usqp=CAU" alt="" />
+            <img className="w-[100%]  h-[100px]" src={"https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-padrinan-255379.jpg&fm=jpg"} alt="" />
+            <img className="w-[70px] h-[70px] m-auto mt-[-50px] rounded-[50%]" src={datas.imageUrl} alt="" />
             <div className="flex flex-col items-center">
-                <p className="font-bold text-xl">{data.displayName}</p>
+                <p className="font-bold text-xl">{datas.displayName}</p>
                 <p>Frontent Developer</p>
             </div>
             <hr className="border border-gray-300"/>

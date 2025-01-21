@@ -7,10 +7,10 @@ import { FaHeart } from "react-icons/fa";
 import { FaHandHoldingHeart } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa6";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateComment } from "../slices/userSlices";
-const Post = ({name , desc , photoImg , id}) => {
+const Post = ({name ,id, desc ,imgUrl,photoUrl}) => {
   const [follow , setFollow] = useState(false);
   const [like , setLike] = useState(false);
   const likeCnt = Math.ceil(Math.random()* 1000)
@@ -21,11 +21,14 @@ const Post = ({name , desc , photoImg , id}) => {
     commentVal.current.value="";
     
   }
+  const userData = localStorage.getItem('userData');
+  const data = JSON.parse(userData);
+  
   return (
     <div className="bg-white border border-gray-300 rounded-xl p-4 flex flex-col md:w-[550px] w-[100%] gap-4">
         <div className="flex justify-between items-center px-4">
           <div className="flex gap-3 items-center">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq7wUje_rFblJ1IX16lC9-0WiyDl2jbl7re9vS9H77MLeDXiX6yUaZ6McVKReSERcbSsk&usqp=CAU" alt="" className="w-[40px] h-[40px] rounded-[50%]"/>
+            <img src={imgUrl} alt="" className="w-[40px] h-[40px] rounded-[50%]"/>
             <div className="flex flex-col ">
               <p className="font-bold">{name}</p>
               <p>xyz@Company</p>
@@ -39,7 +42,7 @@ const Post = ({name , desc , photoImg , id}) => {
         </div>
         <p className="px-4">{desc}</p>
         <div>
-          {photoImg && <img className="w-[100%] h-[300px]" src={photoImg} alt="" />}
+          {photoUrl && <img className="w-[100%] h-[300px]" src={photoUrl} alt="" />}
           <div className="flex justify-between">
             <div className="flex gap-2 items-center">
             <div className="flex">
@@ -75,13 +78,13 @@ const Post = ({name , desc , photoImg , id}) => {
           </div>
         </div>
         <div className="flex gap-4">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq7wUje_rFblJ1IX16lC9-0WiyDl2jbl7re9vS9H77MLeDXiX6yUaZ6McVKReSERcbSsk&usqp=CAU" alt="" className="w-[40px] h-[40px] rounded-[50%]"/>
+          <img src={imgUrl} alt="" className="w-[40px] h-[40px] rounded-[50%]"/>
             <input ref={commentVal} onKeyPress={(e)=> {
               if(e.key === 'Enter') submitComment();
             }} className="border border-gray-300 rounded-xl px-3 w-[80%] outline-none" type="text" placeholder="Add a comments.." />
         </div>
         <div className="flex  gap-2">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq7wUje_rFblJ1IX16lC9-0WiyDl2jbl7re9vS9H77MLeDXiX6yUaZ6McVKReSERcbSsk&usqp=CAU" alt="" className="w-[30px] h-[30px] rounded-[50%]"/>
+        <img src={imgUrl}alt="" className="w-[30px] h-[30px] rounded-[50%]"/>
         <div className="flex flex-col gap-2">
           <div>
             <p className="font-bold">Sanni Kumar</p>

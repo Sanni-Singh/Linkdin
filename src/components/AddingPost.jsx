@@ -1,27 +1,34 @@
 import { RxCross1 } from "react-icons/rx";
 import { FaImage } from "react-icons/fa6";
+import { addDoc, collection } from "firebase/firestore";
+import { fireStore } from "../utils/firebase";
 import { useId, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updatePost } from "../slices/userSlices";
 const AddingPost = ({ setPost}) => {
-    const dispatch = useDispatch();
-    // const userData = useSelector((store)=> store.userData.user);
     const [fileState , setFileState] = useState("");
     const closePostTab = ()=>{
         setPost(false);
     };
     const id = useId();
-    const postSubmit = ()=>{
+    const userData = localStorage.getItem('userData');
+    const datas = JSON.parse(userData);
+    const postConfig = collection(fireStore , "postArr")
+    const postSubmit = async()=>{
         if(postVal.current.value === "")return;
         const postObj = {
-            userName:"userData.displayName",
+            name:datas.displayName,
+            imgUrl:datas.imageUrl,
             desc:postVal.current.value,
             photoUrl:fileState,
             id:id,
             comment:[],
         }
-        dispatch(updatePost(postObj))
-        console.log(postVal.current.value);
+        try{
+         await addDoc(postConfig,postObj)
+        }
+        catch(err){
+            console.log(err);
+            
+        }
         setPost(false);
         
     };

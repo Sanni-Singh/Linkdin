@@ -4,22 +4,33 @@ import HeaderComponent from './HeaderComponent'
 import Post from './Post'
 import PostSection from './PostSection'
 import TrendinghAside from './TrendinghAside'
-import { useEffect, useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { collection, getDocs } from 'firebase/firestore'
+import { fireStore } from '../utils/firebase'
 
 const  MainComponent = ()=> {
-  const allPost = useSelector((store)=> store.UserData.allPost);
   const navigate = useNavigate()
+  const [arr,setArr] = useState([])
   const data = localStorage.getItem('userData');
-    // const userRes = JSON.parse(data);
     const userRes = JSON.parse(data);
-    console.log(userRes);
     useEffect(()=>{
       if(!userRes?.isLogIn){
         navigate("/")
-        console.log(userRes);
     }
     },[])
+
+    useEffect(()=>{
+      const getItem = async ()=>{
+          const postArr =await getDocs(collection(fireStore,'postArr'));
+          const postToShow = postArr.docs.map(post => ({...post.data()}))
+          setArr(postToShow)
+      }
+      getItem();
+      
+  },[])
+  console.log(arr);
+  
   
   return (
     <div className='w-[100%] bg-[#F4F2EE] relative'>
@@ -28,12 +39,13 @@ const  MainComponent = ()=> {
             <AsideProfile/>
             <div className='flex flex-col gap-4  h-[100%]'>
               <PostSection/>
-              {allPost.map((ele)=><Post 
+              {arr.map((ele)=><Post 
               key={ele.id}
-              name={ele.userName}
-              desc={ele.desc}
-              photoImg = {ele.photoUrl}
+              name={ele.name}
               id={ele.id}
+              desc={ele.desc}
+              imgUrl ={ele.imgUrl}
+              photoUrl={ele.photoUrl}
               /> )}
               
             </div>
